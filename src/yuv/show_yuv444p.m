@@ -34,9 +34,12 @@ V = V./255;
 % Show Y, U, V
 subplot(1, 3, 1)
 imshow(Y);
+title('Y');
 subplot(1, 3, 2)
 imshow(U);
+title('U');
 subplot(1, 3, 3)
 imshow(V);
+title('V');
 
 pause(1)

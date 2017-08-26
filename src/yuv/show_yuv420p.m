@@ -50,8 +50,13 @@ vv = vv./255;
 
 subplot(1, 3, 1)
 imshow(y);
+title('Y');
 subplot(1, 3, 2)
 imshow(uu);
+title('U');
+subplot(1, 3, 2)
 subplot(1, 3, 3)
 imshow(vv);
+title('V');
+subplot(1, 3, 2)
 pause(1)
