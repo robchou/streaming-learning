@@ -3,7 +3,7 @@
 #include <string>
 #include <cstring>
 
-#include "wav_file_format.h"
+#include "wav.h"
 
 using std::string;
 
