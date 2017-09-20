@@ -92,7 +92,7 @@ void split(const string& src, const string& left, const string& right) {
         return;
     }
 
-    char* sample = new char[4];
+    char sample[4];
 
     while (!in.eof()) {
         in.read(sample, 4);
@@ -111,8 +111,6 @@ void split(const string& src, const string& left, const string& right) {
     if (channel2.is_open()) {
         channel2.close();
     }
-
-    delete [] sample;
 }
 
 /**
@@ -153,10 +151,51 @@ void volume(const string& src, const string& dest) {
     }
 }
 
+/**
+ * @brief 2x speed to play
+ *
+ * @param src PCM file path
+ * @param dest output PCM file path
+ */
+void speed(const string& src, const string& dest) {
+    std::ifstream in(src, std::ios::in | std::ios::binary);
+    std::ofstream out(dest, std::ios::out | std::ios::binary | std::ios::trunc);
+
+    if (!in.is_open()) {
+        std::cerr << "error: open " << src << " failed!" << std::endl;
+        return;
+    }
+
+    if (!out.is_open()) {
+        std::cerr << "error: open " << dest << " failed!" << std::endl;
+        return;
+    }
+
+    char sample[4];
+    long cnt = 0;
+
+    while (!in.eof()) {
+        in.read(sample, 4);
+        if (cnt % 2 == 0) {
+            out.write(sample, 4);
+        }
+        ++cnt;
+    }
+
+    if (in.is_open()) {
+        in.close();
+    }
+
+    if (out.is_open()) {
+        out.close();
+    }
+}
+
 int main(int argc, char *argv[])
 {
     pcm2wav("../NocturneNo2inEflat_44.1k_s16le.pcm", "pcm2wav.wav", 44100, 16, 2);
     split("../NocturneNo2inEflat_44.1k_s16le.pcm", "channel1.pcm", "channel2.pcm");
     volume("../NocturneNo2inEflat_44.1k_s16le.pcm", "volume.pcm");
+    speed("../NocturneNo2inEflat_44.1k_s16le.pcm", "speed.pcm");
     return 0;
 }
