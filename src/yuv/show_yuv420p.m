@@ -1,10 +1,10 @@
 #!/usr/bin/env octave
 
-filename = 'lena_256x256_yuv420p.yuv','r';
+filename = 'lena_256x256_yuv420p.yuv';
 H = 256; % Height of picture
 W = 256; % Width of picture
 
-fid = fopen(filename);
+fid = fopen(filename, 'r');
 
 Y = fread(fid, [H,W], 'uint8');
 U = fread(fid, [H/2,W/2], 'uint8');
